@@ -2,11 +2,14 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input'
+import Checkbox from '../components/Checkbox'
+import Text from '../components/Text'
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    rememberMe: false
   })
   const navigate = useNavigate()
 
@@ -29,12 +32,24 @@ function Login() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <Text 
+            as="h2" 
+            fontSize="3xl" 
+            fontWeight="extrabold" 
+            textColor="text-gray-900" 
+            align="text-center"
+            className="mt-6"
+          >
             Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          </Text>
+          <Text 
+            fontSize="sm" 
+            textColor="text-gray-600" 
+            align="text-center"
+            className="mt-2"
+          >
             Welcome back to our shop
-          </p>
+          </Text>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
@@ -66,43 +81,55 @@ function Login() {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
+                showPasswordToggle={true}
               />
             </div>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <input
+              <Checkbox
                 id="remember-me"
                 name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 bg-white border-gray-300 rounded focus:ring-blue-700 focus:ring-offset-0"
+                checked={formData.rememberMe}
+                onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
+                label="Remember me"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
             </div>
 
-            <div className="text-sm">
-              <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
+            <div>
+              <Link to="/forgot-password" className="hover:opacity-80">
+                <Text 
+                  fontSize="sm" 
+                  fontWeight="medium" 
+                  textColor="text-indigo-600"
+                >
+                  Forgot your password?
+                </Text>
               </Link>
             </div>
           </div>
 
           <div>
-            <Button type="submit">
+            <Button type="submit" showAppleIcon={true} bgColor="bg-black" textColor="text-green-500">
               Sign in
             </Button>
           </div>
 
           <div className="text-center">
-            <p className="text-sm text-gray-600">
+            <Text fontSize="sm" textColor="text-gray-600">
               Don't have an account?{' '}
-              <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Sign up
+              <Link to="/signup" className="hover:opacity-80">
+                <Text 
+                  as="span" 
+                  fontSize="sm" 
+                  fontWeight="medium" 
+                  textColor="text-indigo-600"
+                >
+                  Sign up
+                </Text>
               </Link>
-            </p>
+            </Text>
           </div>
         </form>
       </div>
