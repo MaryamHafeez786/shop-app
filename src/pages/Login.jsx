@@ -30,106 +30,121 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl relative overflow-hidden">
-        {/* SVG Background/Decoration */}
-        <div className="absolute top-0 right-0 opacity-10 pointer-events-none" style={{ zIndex: 0 }}>
-          <img src={loginSvg} alt="Login decoration" className="w-64 h-64" />
-        </div>
-        <div className="relative" style={{ zIndex: 1 }}>
+    <div className="min-h-screen h-screen flex flex-col md:flex-row overflow-hidden bg-white">
+      {/* Left side section - Login Form */}
+      <div className="w-full md:w-2/5 lg:w-2/5 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-8 md:py-12 overflow-y-auto">
+        <div className="max-w-md w-full mx-auto space-y-4 sm:space-y-5 md:space-y-6">
           <div>
-            <Text 
-              as="h2" 
-              fontSize="3xl" 
-              fontWeight="extrabold" 
-              textColor="text-gray-900" 
-              align="text-center"
-              className="mt-6"
-            >
-              Sign in to your account
-            </Text>
-            <Text 
-              fontSize="sm" 
-              textColor="text-gray-600" 
-              align="text-center"
-              className="mt-2"
-            >
-              Welcome back to our shop
+            <Text variant="h1" className="mb-2 text-3xl sm:text-4xl md:text-5xl">Sign In</Text>
+            <Text variant="body" textColor="text-gray-600" className="text-sm sm:text-base">
+              Enter your email and password to sign in!
             </Text>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+
+          {/* Social Login Buttons - Responsive Layout */}
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <Button 
+              showGoogleIcon={true} 
+              bgColor="bg-white" 
+              textColor="text-gray-900"
+              hoverBgColor="hover:bg-gray-50" 
+              focusRingColor="focus:ring-gray-300"
+              className="border border-gray-300 flex-1 !text-xs sm:!text-sm"
+            >
+              <span className="hidden sm:inline">Sign in with </span>Google
+            </Button>
+            <Button 
+              showAppleIcon={true} 
+              bgColor="bg-white" 
+              textColor="text-gray-900"
+              hoverBgColor="hover:bg-gray-50" 
+              focusRingColor="focus:ring-gray-300"
+              className="border border-gray-300 flex-1 !text-xs sm:!text-sm"
+            >
+              <span className="hidden sm:inline">Sign in with </span>Apple
+            </Button>
+          </div>
+
+          {/* Or Separator */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1 border-t border-gray-300"></div>
+            <Text fontSize="sm" textColor="text-gray-500">or</Text>
+            <div className="flex-1 border-t border-gray-300"></div>
+          </div>
+
+          {/* Form */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <LabelInput
+              label="Email"
+              type="email"
               id="email"
               name="email"
-              type="email"
-              label="Email address"
-              autoComplete="email"
-              required
-              placeholder="Email address"
+              placeholder="info@gmail.com"
               value={formData.email}
               onChange={handleChange}
+              required
             />
             <LabelInput
+              label="Password"
+              type="password"
               id="password"
               name="password"
-              type="password"
-              label="Password"
-              autoComplete="current-password"
-              required
-              placeholder="Password"
+              placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
               showPasswordToggle={true}
+              required
             />
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+            {/* Remember Me & Forgot Password */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
               <Checkbox
                 id="remember-me"
                 name="remember-me"
                 checked={formData.rememberMe}
                 onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
-                label="Remember me"
+                label="keep me logged in"
               />
-            </div>
-
-            <div>
-              <Link to="/forgot-password" className="hover:opacity-80">
-                <Text 
-                  fontSize="sm" 
-                  fontWeight="medium" 
-                  textColor="text-indigo-600"
-                >
-                  Forgot your password?
+              <Link to="/forgot-password" className="hover:opacity-80 text-left sm:text-right">
+                <Text fontSize="sm" fontWeight="medium" textColor="text-indigo-600">
+                  Forgot password?
                 </Text>
               </Link>
             </div>
-          </div>
 
-          <div>
-            <Button type="submit"  bgColor="bg-black" textColor="text-green-500">
-              Sign in
+            {/* Sign In Button */}
+            <Button type="submit" bgColor="bg-blue-900" hoverBgColor="hover:bg-blue-950" focusRingColor="focus:ring-blue-700">
+              Sign In
             </Button>
-          </div>
+          </form>
 
+          {/* Signup Link */}
           <div className="text-center">
-            <Text fontSize="sm" textColor="text-gray-600">
+            <Text variant="body" textColor="text-gray-600">
               Don't have an account?{' '}
               <Link to="/signup" className="hover:opacity-80">
-                <Text 
-                  as="span" 
-                  fontSize="sm" 
-                  fontWeight="medium" 
-                  textColor="text-indigo-600"
-                >
-                  Sign up
+                <Text as="span" fontSize="base" fontWeight="medium" textColor="text-indigo-600">
+                  Signup
                 </Text>
               </Link>
             </Text>
           </div>
-          </form>
+        </div>
+      </div>
+
+      {/* Right side section - Illustration */}
+      <div className="hidden md:flex w-full md:w-3/5 lg:w-3/5 bg-pink-50 items-center justify-center p-4 md:p-6 lg:p-8 overflow-hidden">
+        <div className="relative w-full h-full flex items-center justify-center">
+          <img 
+            src={loginSvg} 
+            alt="Login illustration" 
+            className="w-full h-full object-contain max-h-screen"
+            style={{ 
+              maxWidth: '100%',
+              maxHeight: '100vh',
+              objectFit: 'contain'
+            }}
+          />
         </div>
       </div>
     </div>

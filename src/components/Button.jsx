@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaGoogle, FaApple } from 'react-icons/fa'
+import { googleIcon, appleIcon } from '../assets/images'
 
 function Button({ 
   children, 
@@ -15,7 +16,11 @@ function Button({
   showAppleIcon = false,
   ...props 
 }) {
-  const baseClasses = `group relative w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md ${textColor} ${bgColor} ${hoverBgColor} focus:outline-none focus:ring-2 focus:ring-offset-2 ${focusRingColor} transition-colors duration-200`
+  // Check if className includes border to avoid border-transparent conflict
+  const hasCustomBorder = className.includes('border-') && !className.includes('border-transparent')
+  const borderClass = hasCustomBorder ? '' : 'border border-transparent'
+  
+  const baseClasses = `group relative w-full flex justify-center items-center gap-2 py-2 px-4 ${borderClass} text-sm font-medium rounded-md ${textColor} ${bgColor} ${hoverBgColor} focus:outline-none focus:ring-2 focus:ring-offset-2 ${focusRingColor} transition-colors duration-200`
   const disabledClasses = "disabled:bg-blue-700 disabled:cursor-not-allowed"
   const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`.trim()
 
@@ -28,10 +33,10 @@ function Button({
       {...props}
     >
       {showGoogleIcon && (
-        <FaGoogle className="h-5 w-5 flex-shrink-0" style={{ display: 'block' }} aria-hidden="true" />
+        <img src={googleIcon} alt="Google" className="h-5 w-5 flex-shrink-0" />
       )}
       {showAppleIcon && (
-        <FaApple className="h-5 w-5 flex-shrink-0" style={{ display: 'block' }} aria-hidden="true" />
+        <img src={appleIcon} alt="Apple" className="h-5 w-5 flex-shrink-0" />
       )}
       {children}
     </button>

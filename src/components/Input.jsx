@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import { MdEmail, MdLock } from 'react-icons/md'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
-function Input({ 
+const Input = forwardRef(function Input({ 
   id,
   name,
   type = 'text',
@@ -20,9 +20,10 @@ function Input({
   focusBorderColor = 'focus:border-blue-700',
   focusRingColor = 'focus:ring-blue-700',
   placeholderColor = 'placeholder-gray-400',
+  width = 'w-full',
   showPasswordToggle = false,
   ...props 
-}) {
+}, ref) {
   const [showPassword, setShowPassword] = useState(false)
   
   // Determine which icon to show based on input type
@@ -70,6 +71,7 @@ function Input({
         </div>
       )}
       <input
+        ref={ref}
         id={id}
         name={name}
         type={inputType}
@@ -98,6 +100,6 @@ function Input({
       )}
     </div>
   )
-}
+})
 
 export default Input
