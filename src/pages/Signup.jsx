@@ -2,13 +2,16 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input'
+import Text from '../components/Text'
+import Checkbox from '../components/Checkbox'
 
 function Signup() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    agreeTerms: false
   })
 
   const handleChange = (e) => {
@@ -35,12 +38,22 @@ function Signup() {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <Text 
+            variant="h2"
+            textColor="text-red-500" 
+            align="text-center"
+            className="mt-6"
+          >
             Create your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          </Text>
+          <Text 
+            fontSize="sm" 
+            textColor="text-gray-600" 
+            align="text-center"
+            className="mt-2"
+          >
             Join us and start shopping
-          </p>
+          </Text>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
@@ -108,19 +121,21 @@ function Signup() {
           </div>
 
           <div className="flex items-center">
-            <input
+            <Checkbox
               id="agree-terms"
               name="agree-terms"
-              type="checkbox"
+              checked={formData.agreeTerms || false}
+              onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
+              label={
+                <>
+                  I agree to the{' '}
+                  <a href="#" className="text-indigo-600 hover:text-indigo-500">
+                    Terms and Conditions
+                  </a>
+                </>
+              }
               required
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
             />
-            <label htmlFor="agree-terms" className="ml-2 block text-sm text-gray-900">
-              I agree to the{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-500">
-                Terms and Conditions
-              </a>
-            </label>
           </div>
 
           <div>
@@ -130,12 +145,19 @@ function Signup() {
           </div>
 
           <div className="text-center">
-            <p className="text-sm text-gray-600">
+            <Text fontSize="sm" textColor="text-gray-600">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Sign in
+              <Link to="/login" className="hover:opacity-80">
+                <Text 
+                  as="span" 
+                  fontSize="sm" 
+                  fontWeight="medium" 
+                  textColor="text-indigo-600"
+                >
+                  Sign in
+                </Text>
               </Link>
-            </p>
+            </Text>
           </div>
         </form>
       </div>

@@ -41,7 +41,8 @@ export default {
         "5xl": "3rem", // 48px
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
+        sans: ["Montserrat", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
       },
       fontWeight: {
         thin: 100,
